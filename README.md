@@ -1,5 +1,5 @@
 # Home-Assistant-Project
-Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorologisk institutt, and TP-Link Kasa
+Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorologisk institutt, and TP-Link Kasa all installed and running on a raspberry pi.
 # Features
 - Cloud integration for controlling the system when away
 - thermostat control pannel

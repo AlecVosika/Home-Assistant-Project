@@ -53,7 +53,7 @@ alarm_control_panel:
 ################################################################################
 ####################### Used to send email #####################################
 notify_events:
-    token: GlKE0KnFWqEsSHi1e6a_cvRg0QORz7cZ
+    token: [token]
   
 notify:
   - name: "events"

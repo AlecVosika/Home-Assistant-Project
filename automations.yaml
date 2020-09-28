@@ -1,0 +1,176 @@
+################################################################################
+#################### Alarm Section #############################################
+- alias: "Alarm - Trigger when sensors go off"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pool_door
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.front_door
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.garage_entry_door
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.casita_entry_door
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.front_windows
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.upstairs_windows
+      to: "on"
+    #  - platform: state
+    #    entity_id: binary_sensor.casita_interior_door
+    #    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.owners_suite
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.family_room_windows
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.casita_windows
+      to: "on"
+  # If any of the following returns true, do something
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: armed_home
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: armed_away
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: armed_night
+  # Send the alarm the command for trigger.
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm
+  id: 7d25df461c484fb1ac46bb2b5d68bc41
+
+#
+- alias: "Alarm - Triggered"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: triggered
+  action:
+    - service: switch.turn_on
+      entity_id: switch.siren
+    # Sends notification to Dereks Iphone
+    - service: notify.mobile_app_dereks_iphone
+      data:
+        message: Intrusion Alarm Detected
+  mode: single
+
+# When the alarm_control_panel.alarm state is set to disarmed, turn siren off
+- alias: "Alarm - Disarmed"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: disarmed
+  action:
+    - service: switch.turn_off
+      entity_id: switch.siren
+  id: c3f79d838cca464da694d9ca93026324
+
+######## Locks all doors when alarm is set to "arm home"
+- alias: "lock doors when armed_home"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: armed_home
+  action:
+    - service: lock.lock
+      entity_id: lock.front_door_lock
+    - service: lock.lock
+      entity_id: lock.pool_door_lock
+    - service: lock.lock
+      entity_id: lock.casita_door_lock
+
+######## Locks all doors when alarm is set to "arm away"
+- alias: "lock doors when armed_away"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: armed_away
+  action:
+    - service: lock.lock
+      entity_id: lock.front_door_lock
+    - service: lock.lock
+      entity_id: lock.pool_door_lock
+    - service: lock.lock
+      entity_id: lock.casita_door_lock
+
+######## Locks all doors when alarm is set to "arm night"
+- alias: "lock doors when armed_night"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: armed_night
+  action:
+    - service: lock.lock
+      entity_id: lock.front_door_lock
+    - service: lock.lock
+      entity_id: lock.pool_door_lock
+    - service: lock.lock
+      entity_id: lock.casita_door_lock
+
+- alias: "Disarm alarm when door unlocked by keypad"
+  trigger:
+    - platform: state
+      entity_id: sensor.kwikset_spectrum_brands_touchpad_electronic_deadbolt_alarm_type
+      # many z-wave locks use Alarm Type 19 for 'Unlocked by Keypad'
+      to: "19"
+    - platform: state
+      entity_id: sensor.schlage_allegion_be469_touchscreen_deadbolt_alarm_type
+      to: "19"
+    - platform: state
+      entity_id: sensor.schlage_allegion_be469_touchscreen_deadbolt_alarm_type_2
+      to: "19"
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.alarm
+      data:
+        code: !secret alarm_code
+
+- alias: "Arm Night living room motion light"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.main_level_motion
+    to: "on"
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.alarm
+    state: "armed_night"
+  action:
+    service: switch.turn_on
+    entity_id: switch.indoor_plug
+
+- alias: "Turn off living room light 10 minutes after last movement"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.main_level_motion
+    to: "off"
+    for:
+      minutes: 10
+  action:
+    service: switch.turn_off
+    entity_id: switch.indoor_plug
+
+################################################################################
+###################### Test Code For Notifications #############################
+# Email Alec on Pool door open
+- alias: "Text Alec on pool door open"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.pool_door
+    to: "on"
+  action:
+    service: notify.notify
+    data:
+      message: Door opened
+  id: 79caa870f14a4b10bb6d17f30d8902fe

@@ -1,0 +1,113 @@
+title: Home
+views:
+  - path: default_view
+    title: Home
+    badges: null
+    cards:
+      - type: alarm-panel
+        states:
+          - arm_home
+          - arm_away
+          - arm_night
+        entity: alarm_control_panel.alarm
+        name: Alarm
+      - type: vertical-stack
+        cards:
+          - type: weather-forecast
+            entity: weather.home_hourly
+          - type: button
+            tap_action:
+              action: toggle
+            entity: lock.pool_door_lock
+            show_state: false
+            name: Pool Door Lock
+            show_icon: true
+            icon_height: 25px
+          - type: button
+            tap_action:
+              action: toggle
+            entity: lock.front_door_lock
+            show_state: false
+            name: Front Door Lock
+            icon_height: 25px
+          - type: button
+            tap_action:
+              action: toggle
+            entity: lock.casita_door_lock
+            show_state: false
+            name: Casita Door Lock
+            icon_height: 25px
+  - title: Locks
+    path: locks
+    badges: []
+    cards:
+      - type: button
+        tap_action:
+          action: toggle
+        entity: lock.pool_door_lock
+        show_state: false
+        name: Pool Door Lock
+        show_icon: true
+        icon_height: 100px
+      - type: button
+        tap_action:
+          action: toggle
+        entity: lock.front_door_lock
+        name: Casita Door Lock
+        icon_height: 100px
+      - type: button
+        tap_action:
+          action: toggle
+        entity: lock.casita_door_lock
+        show_state: false
+        name: Front Door Lock
+        icon_height: 100px
+  - title: Thermostats
+    path: thermostats
+    badges: []
+    cards:
+      - type: thermostat
+        entity: climate.main_floor_thermostat
+        name: Main Floor Thermostat
+      - type: thermostat
+        entity: climate.2nd_floor_thermostat
+        name: Upstairs Thermostat
+      - type: thermostat
+        entity: climate.casita_thermostat
+        name: Casita Thermostat
+  - title: Lights
+    path: testing
+    theme: ''
+    panel: false
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: button
+            tap_action:
+              action: toggle
+            entity: switch.indoor_plug
+            icon_height: 200px
+            name: Indoor Light
+          - type: button
+            tap_action:
+              action: toggle
+            entity: switch.outdoor_plug
+            name: Outdoor Light
+            icon_height: 200px
+  - title: Test
+    path: test
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: binary_sensor.main_level_motion
+          - entity: binary_sensor.casita_entry_door
+          - entity: binary_sensor.casita_interior_door
+          - entity: binary_sensor.casita_windows
+          - entity: binary_sensor.family_room_windows
+          - entity: binary_sensor.front_door
+          - entity: binary_sensor.front_windows
+          - entity: binary_sensor.garage_entry_door
+          - entity: binary_sensor.owners_suite
+          - entity: binary_sensor.pool_door

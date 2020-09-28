@@ -1,5 +1,16 @@
 # Home-Assistant-Project
 Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorologisk institutt, and TP-Link Kasa
+# Features
+- Cloud integration for controlling the system when away
+- Fully functional alarm system with three modes
+- thermostat control pannel
+- Door lock control pannel
+- Lights control pannel
+  - Arm Home: Immediately locks and arms entire house when activated 
+  - Arm Away: Immediately locks entire house; Gives time to leave the house after arming and gives time to disarm once the alarm is triggered
+  - Arm Night: Immediately locks and arms entire house and activates motion detection night light in living room
+- Notification system set up to alert the user on their mobile when the alarm is triggered
+
 # Images
 ![Pi](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Pi.jpg)
 ![UI1](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/UI1.jpg)

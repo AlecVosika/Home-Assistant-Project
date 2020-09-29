@@ -11,14 +11,14 @@ Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorolo
   - Arm Night: Immediately locks and arms entire house and activates motion detection night light in living room
 - Notification system set up to alert the user on their mobile when the alarm is triggered
 # Devices
-- [Raspberry Pi 4 Model B] (https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
-- [Z-Wave USB Stick] (https://www.getzooz.com/zooz-zst10-s2-stick.html)
-- [Konnected Alarm Panel] (https://konnected.io/collections/shop-now/products/6-zone-konnected-alarm-panel-siren-output)
-- [Honeywell wired infared motion sensor] (https://konnected.io/collections/shop-now/products/honeywell-wired-passive-infrared-pir-motion-sensor-1)
-- [Honeywell Siren] (https://konnected.io/collections/shop-now/products/honeywell-wave2-two-tone-siren)
-- [Schlage Connect Smart Deadbolt] (https://www.schlage.com/en/home/products/BE469NXCAMFFF.html)
-- [Home Automation Thermostat Control] (https://www.trane.com/residential/en/products/thermostats-and-controls/xl624/)
-- [TP-Link Kasa Smart Wi-fi Plug HS100] (https://www.hadevices.com/product/29)
+- [Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
+- [Z-Wave USB Stick](https://www.getzooz.com/zooz-zst10-s2-stick.html)
+- [Konnected Alarm Panel](https://konnected.io/collections/shop-now/products/6-zone-konnected-alarm-panel-siren-output)
+- [Honeywell wired infared motion sensor](https://konnected.io/collections/shop-now/products/honeywell-wired-passive-infrared-pir-motion-sensor-1)
+- [Honeywell Siren](https://konnected.io/collections/shop-now/products/honeywell-wave2-two-tone-siren)
+- [Schlage Connect Smart Deadbolt](https://www.schlage.com/en/home/products/BE469NXCAMFFF.html)
+- [Home Automation Thermostat Control](https://www.trane.com/residential/en/products/thermostats-and-controls/xl624/)
+- [TP-Link Kasa Smart Wi-fi Plug HS100](https://www.hadevices.com/product/29)
 - Hard wired door and window sensors
 # Images
 ![Pi](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Pi.jpg)

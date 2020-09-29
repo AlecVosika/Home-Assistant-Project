@@ -3,7 +3,7 @@ Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorolo
 # Features
 - Cloud integration for controlling the system when away
 - thermostat control pannel
-- Door lock control pannelhttps://www.raspberrypi.org/products/raspberry-pi-4-model-b/
+- Door lock control pannel
 - Lights control pannel
 - Fully functional alarm system with three modes
   - Arm Home: Immediately locks and arms entire house when activated 

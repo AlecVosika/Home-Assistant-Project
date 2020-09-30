@@ -1,0 +1,7 @@
+group:
+  name: Exterior door notification
+  entities:
+    - automation.notify_derek_through_mobile_app_when_casita_entry_door_opens
+    - automation.notify_derek_through_mobile_app_when_front_door_opens
+    - automation.notify_derek_through_mobile_app_when_pool_door_opens
+    - automation.notify_derek_through_mobile_app_when_garage_entry_door_opens

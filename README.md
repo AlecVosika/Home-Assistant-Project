@@ -10,6 +10,7 @@ Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorolo
   - Arm Away: Immediately locks entire house; Gives time to leave the house after arming and gives time to disarm once the alarm is triggered
   - Arm Night: Immediately locks and arms entire house and activates motion detection night light in living room
 - Notification system set up to alert the user on their mobile when the alarm is triggered
+- Inputing alarm code in any antry door keypad will disarm the alarm system
 # Devices
 - [Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
 - [Z-Wave USB Stick](https://www.getzooz.com/zooz-zst10-s2-stick.html)

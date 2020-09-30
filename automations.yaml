@@ -1,6 +1,5 @@
-################################################################################
-#################### Alarm Section #############################################
-- alias: "Alarm - Trigger when sensors go off"
+# Automation for triggering alarm
+- alias: Alarm - Trigger when sensors go off
   trigger:
     - platform: state
       entity_id: binary_sensor.pool_door
@@ -20,9 +19,6 @@
     - platform: state
       entity_id: binary_sensor.upstairs_windows
       to: "on"
-    #  - platform: state
-    #    entity_id: binary_sensor.casita_interior_door
-    #    to: 'on'
     - platform: state
       entity_id: binary_sensor.owners_suite
       to: "on"
@@ -32,7 +28,7 @@
     - platform: state
       entity_id: binary_sensor.casita_windows
       to: "on"
-  # If any of the following returns true, do something
+  #If any of the following atates are true, continue to action
   condition:
     condition: or
     conditions:
@@ -45,29 +41,31 @@
       - condition: state
         entity_id: alarm_control_panel.alarm
         state: armed_night
-  # Send the alarm the command for trigger.
+  # Trigger alarm
   action:
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.alarm
   id: 7d25df461c484fb1ac46bb2b5d68bc41
 
-#
-- alias: "Alarm - Triggered"
+# Automation to turns on siren when alarm is triggered
+- alias: Alarm - Triggered
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm
       to: triggered
   action:
+    # Service to turn the physical siren on
     - service: switch.turn_on
       entity_id: switch.siren
-    # Sends notification to Dereks Iphone
+    # Service to Notify via the HA app that an intrusion was detected
     - service: notify.mobile_app_dereks_iphone
       data:
         message: Intrusion Alarm Detected
   mode: single
+  id: ddd6ed5f83bf4a4eb04722b21f00eb44
 
-# When the alarm_control_panel.alarm state is set to disarmed, turn siren off
-- alias: "Alarm - Disarmed"
+# Automation to turn the physical siren off when the system is disarmed
+- alias: Alarm - Disarmed
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm
@@ -77,8 +75,8 @@
       entity_id: switch.siren
   id: c3f79d838cca464da694d9ca93026324
 
-######## Locks all doors when alarm is set to "arm home"
-- alias: "lock doors when armed_home"
+# Automation to lock all exterior doors when alarm state is set to armed_home
+- alias: lock doors when armed_home
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm
@@ -90,9 +88,10 @@
       entity_id: lock.pool_door_lock
     - service: lock.lock
       entity_id: lock.casita_door_lock
+  id: 40c209ca49a146cf95294c63236cf974
 
-######## Locks all doors when alarm is set to "arm away"
-- alias: "lock doors when armed_away"
+# Automation to lock all exterior doors when alarm state is set to armed_away
+- alias: lock doors when armed_away
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm
@@ -104,9 +103,10 @@
       entity_id: lock.pool_door_lock
     - service: lock.lock
       entity_id: lock.casita_door_lock
+  id: 7e66095f2e354ad8b5c9144344ff4d92
 
-######## Locks all doors when alarm is set to "arm night"
-- alias: "lock doors when armed_night"
+# Automation to lock all exterior doors when alarm state is set to armed_night
+- alias: lock doors when armed_night
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm
@@ -118,12 +118,13 @@
       entity_id: lock.pool_door_lock
     - service: lock.lock
       entity_id: lock.casita_door_lock
+  id: 13cadbf4346c4139914a673e21d39689
 
-- alias: "Disarm alarm when door unlocked by keypad"
+# Automation to disarm the alarm when the alarm code is entered into a deadbolt
+- alias: Disarm alarm when door unlocked by keypad
   trigger:
     - platform: state
       entity_id: sensor.kwikset_spectrum_brands_touchpad_electronic_deadbolt_alarm_type
-      # many z-wave locks use Alarm Type 19 for 'Unlocked by Keypad'
       to: "19"
     - platform: state
       entity_id: sensor.schlage_allegion_be469_touchscreen_deadbolt_alarm_type
@@ -136,8 +137,10 @@
       entity_id: alarm_control_panel.alarm
       data:
         code: !secret alarm_code
+  id: fc7a6e91bb18436cbaba72595e760aba
 
-- alias: "Arm Night living room motion light"
+# Automation to use living room motion to turn on a light when in armed_night
+- alias: Arm Night living room motion light
   trigger:
     platform: state
     entity_id: binary_sensor.main_level_motion
@@ -145,12 +148,15 @@
   condition:
     condition: state
     entity_id: alarm_control_panel.alarm
-    state: "armed_night"
+    state: armed_night
   action:
     service: switch.turn_on
     entity_id: switch.indoor_plug
+  id: 09ea8dcfff6d462d8aaae838c273290d
 
-- alias: "Turn off living room light 10 minutes after last movement"
+# Automation to turn living room light off when no motion is detected
+# for 10 minutes when in armed_night
+- alias: Turn off living room light 10 minutes after last movement
   trigger:
     platform: state
     entity_id: binary_sensor.main_level_motion
@@ -160,11 +166,10 @@
   action:
     service: switch.turn_off
     entity_id: switch.indoor_plug
+  id: b1e24812d22b475e91d9296f93f02218
 
-################################################################################
-###################### Test Code For Notifications #############################
-# Email Alec on Pool door open
-- alias: "Text Alec on pool door open"
+# Automation used for testing to send emails on a state change
+- alias: Email Alec on pool door open
   trigger:
     platform: state
     entity_id: binary_sensor.pool_door
@@ -172,5 +177,58 @@
   action:
     service: notify.notify
     data:
-      message: Door opened
+      message: Door Opened
   id: 79caa870f14a4b10bb6d17f30d8902fe
+
+# Automation used to notify user through mobile app when a door opens
+- alias: Notify Derek through mobile app when pool door opens
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pool_door
+      to: "on"
+  action:
+    - service: notify.mobile_app_dereks_iphone
+      data:
+        message: Pool Door Opened
+  mode: single
+  id: 65a1342329bd4d749f40eec87caa57cb
+
+# Automation used to notify user through mobile app when a door opens
+- alias: Notify Derek through mobile app when front door opens
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door
+      to: "on"
+  action:
+    - service: notify.mobile_app_dereks_iphone
+      data:
+        message: Front Door Opened
+  mode: single
+  id: f9066cf12b6d46818cd7061ff0111d84
+
+# Automation used to notify user through mobile app when a door opens
+- alias: Notify Derek through mobile app when garage entry door opens
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_entry_door
+      to: "on"
+  action:
+    - service: notify.mobile_app_dereks_iphone
+      data:
+        message: Garage Entry Door Opened
+  mode: single
+  id: 736c1d135e0a4431a8f7ea5a02972288
+
+# Automation used to notify user through mobile app when a door opens
+- alias: Notify Derek through mobile app when casita entry door opens
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.casita_entry_door
+      to: "on"
+  action:
+    - service: notify.mobile_app_dereks_iphone
+      data:
+        message: Casita Entry Door Opened
+  mode: single
+  id: c4e97dc7ec8d442a8cbb05a0117ba876
+

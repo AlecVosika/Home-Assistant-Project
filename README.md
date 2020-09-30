@@ -24,7 +24,7 @@ Implementation of Home Assistant integrated with Konnected.io, Z-Wave, Meteorolo
 # Images
 ![Pi](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Pi.jpg)
 ![UI1](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/UI1.jpg)
-![UI2](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI1.jpg)
-![UI3](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI2.jpg)
-![UI4](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI3.jpg)
-![UI5](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI4.jpg)
+![UI2](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI1.png)
+![UI3](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI2.png)
+![UI4](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI3.png)
+![UI5](https://github.com/AlecVosika/Home-Assistant-Project/blob/master/Images/Computer_UI4.png)
